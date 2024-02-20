@@ -1,0 +1,12 @@
+{
+  "name": "ocean-jornada-backend-fevereiro",
+  "version": "1.0.0",
+  "description": "Projeto com NodeJS e Express feito para a Jornada Backend da Ocean em Feveriro de 2024",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Julio Lobo",
+  "license": "MIT"
+}
