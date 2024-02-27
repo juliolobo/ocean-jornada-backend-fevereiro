@@ -23,9 +23,12 @@ async function main() {
 
   //Lista de personagens
   const lista = ['Rick Sanchez', 'Morty Smith', 'Summer smith']
+  const db = client.db(dbName)
+  const collection = db.collection('items')
 
-  app.get('/item', function (req, res) {
-    res.send(lista)
+  app.get('/item', async function (req, res) {
+    const items = await collection.find().toArray()
+    res.send(items)
   })
 
   app.get('/item/:id', function (req, res) {
