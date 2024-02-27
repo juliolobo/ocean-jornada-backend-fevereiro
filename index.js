@@ -1,36 +1,51 @@
 const express = require('express')
-const app = express()
+const { MongoClient } = require('mongodb')
 
-app.get('/', function (req, res) {
-  res.send('Hello, World')
-})
+const dbUrl = 'mongodb+srv://admin:oW9wKz5xWkBHxoGp@lobo0.nlyunv4.mongodb.net'
+const dbName = 'OceanJornadaBackendFev2024'
 
-app.get('/oi', function (req, res) {
+async function main() {
+  const client = new MongoClient(dbUrl)
+
+  console.log('Conectando ao BD')
+  await client.connect()
+  console.log('BD Conectado com sucesso!')
+
+  const app = express()
+
+  app.get('/', function (req, res) {
+    res.send('Hello, World')
+  })
+
+  app.get('/oi', function (req, res) {
     res.send('Olá Mundo')
-})
+  })
 
-//Lista de personagens
-const lista = ['Rick Sanchez', 'Morty Smith', 'Summer smith']
+  //Lista de personagens
+  const lista = ['Rick Sanchez', 'Morty Smith', 'Summer smith']
 
-app.get('/item', function (req, res) {
-  res.send(lista)
-})
+  app.get('/item', function (req, res) {
+    res.send(lista)
+  })
 
-app.get('/item/:id', function (req, res) {
-  const id = req.params.id
-  const item = lista[id]
-  
-  res.send(item)
-})
+  app.get('/item/:id', function (req, res) {
+    const id = req.params.id
+    const item = lista[id]
 
-app.use(express.json())
+    res.send(item)
+  })
 
-app.post('/item', function (req, res) {
-  const body = req.body
-  const item = body.nome
-  lista.push(item)
-  
-  res.send('Item adicionado com sucesso')
-})
+  app.use(express.json())
 
-app.listen(3000)
+  app.post('/item', function (req, res) {
+    const body = req.body
+    const item = body.nome
+    lista.push(item)
+
+    res.send('Item adicionado com sucesso')
+  })
+
+  app.listen(3000)
+}
+
+main()
