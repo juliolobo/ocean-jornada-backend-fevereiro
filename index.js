@@ -42,12 +42,12 @@ async function main() {
 
   app.use(express.json())
 
-  app.post('/item', function (req, res) {
-    const body = req.body
-    const item = body.nome
-    lista.push(item)
+  app.post('/item', async function (req, res) {
+    const item = req.body
+    
+    await collection.insertOne(item)
 
-    res.send('Item adicionado com sucesso')
+    res.send(item)
   })
 
   app.listen(3000)
