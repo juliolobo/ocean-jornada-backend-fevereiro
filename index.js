@@ -1,7 +1,8 @@
+require('dotenv').config()
 const express = require('express')
 const { MongoClient, ObjectId } = require('mongodb')
 
-const dbUrl  = 'mongodb+srv://admin:oW9wKz5xWkBHxoGp@lobo0.nlyunv4.mongodb.net'
+const dbUrl  = process.env.DB_URL
 const dbName = 'OceanJornadaBackendFev2024'
 
 async function main() {
@@ -21,8 +22,6 @@ async function main() {
     res.send('Olá Mundo')
   })
 
-  //Lista de personagens
-  const lista      = ['Rick Sanchez', 'Morty Smith', 'Summer smith']
   const db         = client.db(dbName)
   const collection = db.collection('items')
 
@@ -62,7 +61,7 @@ async function main() {
   })
 
   app.delete('/item/:id', async function (req, res) {
-    const id   = req.params.id
+    const id = req.params.id
     await collection.deleteOne({
       _id: new ObjectId(id)
     })
